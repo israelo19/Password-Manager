@@ -2,15 +2,13 @@ from cryptography.fernet import Fernet
 
 class PasswordManager:
     
-    
     def __init__(self):
         self.key = None
         self.password_file = None
-        self.password_dict = {} #this is to store the passwords
+        self.password_dict = {}  # This is to store the passwords
         
     def create_key(self, path):
         self.key = Fernet.generate_key()
-        print(self.key)
         with open(path, 'wb') as f:
             f.write(self.key)
             
@@ -18,25 +16,80 @@ class PasswordManager:
         with open(path, 'rb') as f:
             self.key = f.read()
             
-    #function for creating the password file
-    
-    def create_password_file(self, path, initial_values = None):        
+    def create_password_file(self, path, initial_values=None):
         self.password_file = path
-        
         if initial_values is not None:
-            for key, value in initial_values.items():
-                pass # TODO: add password function ()
+            with open(path, 'w') as f:
+                for key, value in initial_values.items():
+                    encrypted = Fernet(self.key).encrypt(value.encode())
+                    f.write(key + ":" + encrypted.decode() + "\n")
+                    self.password_dict[key] = value
             
     def load_password(self, path):
         self.password_file = path
-        
         with open(path, 'r') as f:
             for line in f:
-                site, encrypted = line.split(":")
+                site, encrypted = line.strip().split(":")
+                self.password_dict[site] = Fernet(self.key).decrypt(encrypted.encode()).decode()
 
-                        
-pm = PasswordManager()
-pm.create_key("PasswordManager/mykey.key")
+    def add_password(self, site, password):
+        self.password_dict[site] = password
+        if self.password_file is not None:
+            with open(self.password_file, 'a') as f:
+                encrypted = Fernet(self.key).encrypt(password.encode())
+                f.write(site + ":" + encrypted.decode() + "\n")
+    
+    def get_password(self, site):
+        return self.password_dict.get(site, f"No password found for {site}")
+    
+def main():
+    passwords = {
+        "email": "123456",
+        "instagram" : "instamoney123",
+        "youtube" : "ytpassword",
+        "something" : "bigpassword_123"
+    }
+                         
+    pm = PasswordManager()
+    
+    print("""What would you like to do?
+        (1) Create a new key
+        (2) Load an existing key
+        (3) Create new password file
+        (4) Load existing password file
+        (5) Add a new password
+        (6) Get a password
+        (q) Quit
+        """)
 
+    done = False
 
-
+    while not done:
+        choice = input("Enter your choice: ")
+        if choice == "1":
+            path = input("Enter path: ")
+            pm.create_key(path)
+        elif choice == "2":
+            path = input("Enter path: ")
+            pm.load_key(path)
+        elif choice == "3":
+            path = input("Enter path: ")
+            pm.create_password_file(path, passwords)
+        elif choice == "4":
+            path = input("Enter path: ")
+            pm.load_password(path)
+        elif choice == "5":
+            site = input("Enter the site: ")
+            password = input("Enter the password: ")
+            pm.add_password(site, password)
+        elif choice == "6":
+            site = input("What site do you want: ")
+            print(f"Password for {site} is {pm.get_password(site)}")
+        elif choice ==  "q":
+            done = True
+            print("Bye")
+        else:
+            print("Invalid Choice!")
+                
+if __name__ == "__main__":
+    main()
