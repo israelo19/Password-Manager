@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Password Manager</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+</head>
+<body>
+    <div id="particles-js"></div>
+    <div class="container">
+        <h1>Secure Password Manager</h1>
+        
+        <div class="function-group">
+            <h2>Key Management</h2>
+            <div class="card">
+                <h3>Create Key</h3>
+                <form action="{{ url_for('create_key') }}" method="post">
+                    <input type="text" name="path" placeholder="Enter path">
+                    <button type="submit">Create Key</button>
+                </form>
+            </div>
+            <div class="card">
+                <h3>Load Key</h3>
+                <form action="{{ url_for('load_key') }}" method="post">
+                    <input type="text" name="path" placeholder="Enter path">
+                    <button type="submit">Load Key</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="function-group">
+            <h2>Password File Management</h2>
+            <div class="card">
+                <h3>Create Password File</h3>
+                <form action="{{ url_for('create_password_file') }}" method="post">
+                    <input type="text" name="path" placeholder="Enter path">
+                    <button type="submit">Create Password File</button>
+                </form>
+            </div>
+            <div class="card">
+                <h3>Load Password File</h3>
+                <form action="{{ url_for('load_password') }}" method="post">
+                    <input type="text" name="path" placeholder="Enter path">
+                    <button type="submit">Load Password File</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="function-group">
+            <h2>Password Operations</h2>
+            <div class="card">
+                <h3>Add Password</h3>
+                <form action="{{ url_for('add_password') }}" method="post">
+                    <input type="text" name="site" placeholder="Enter site">
+                    <input type="password" name="password" placeholder="Enter password">
+                    <button type="submit">Add Password</button>
+                </form>
+            </div>
+            <div class="card">
+                <h3>Get Password</h3>
+                <form action="{{ url_for('get_password') }}" method="post">
+                    <input type="text" name="site" placeholder="Enter site">
+                    <button type="submit">Get Password</button>
+                </form>
+            </div>
+        </div>
+
+        {% if password %}
+        <div class="result-card">
+            <h3>Password Result</h3>
+            <p>{{ password }}</p>
+        </div>
+        {% endif %}
+    </div>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
