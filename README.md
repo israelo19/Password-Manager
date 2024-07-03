@@ -17,7 +17,7 @@ Secure Password Manager is a Flask-based web application that allows users to se
 - Python 3.x
 - Flask
 - Cryptography library (Fernet)
-- HTML/CSS
+- React for Frontend
 - JavaScript (with particles.js for background effects)
 
 ## Installation
