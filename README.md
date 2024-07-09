@@ -66,4 +66,9 @@ This project is for educational purposes only. The creators are not responsible 
 
 Progress so far: ![image](https://github.com/israelo19/Password-Manager/assets/57731260/2dbf10a4-7b7b-4728-8a2c-c134e317e5fc)
 
+For the frontend as of right now, to run the program:
+```
+npm run dev
+```
+
 @Israel Ogwu & @Cedric 
