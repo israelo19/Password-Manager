@@ -69,7 +69,7 @@ Progress so far: ![image](https://github.com/israelo19/Password-Manager/assets/5
 For the frontend as of right now:
 First you install npm with your terminal
 ```
-npm run dev
+npm install
 ```
 Then you run the program with 
 ```
