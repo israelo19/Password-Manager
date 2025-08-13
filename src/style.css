@@ -1,95 +1,77 @@
-body {
-  background-color: black;
+@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
 }
 
-.frontButton{
-  background-color: #00ff00; /* Hacker green color */
-  color: black;
-  margin: 10px 0px;
-  padding: 10px;
-  border-radius: 4px;
-  border: none;
-  cursor: pointer;
-  font-family: 'Source Code Pro', 'Courier New', Courier, monospace; /* Hacker-like font */
-  transition: transform 0.2s ease-in-out;
+::-webkit-scrollbar-track {
+  @apply bg-gray-800;
 }
 
-.hacker-text {
-  color: #00ff00; /* Hacker green color */
-  font-family: 'Source Code Pro', 'Courier New', Courier, monospace; /* Hacker-like font */
+::-webkit-scrollbar-thumb {
+  @apply bg-gray-600 rounded-full;
 }
 
-.frontForms {
-  width: 100%;
-  height: 30px;
-  background-color: darkgrey;
-  border-radius: 4px;
-  border: none;
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-gray-500;
 }
 
-.frontDivider {
-  margin: 0 auto;
-  background-color: #333333;
-  border-radius: 4px;
-  border: none;
-  width: 90%;
-}
-
-.boxes {
-  margin: 10px;
-  padding: 10px;
-}
-
-.frontButton:hover{
-  transform: scale(1.1);
-}
-
-nav {
-  background-color: #00ff00; /* Green background */
-  padding: 10px;
-}
-
-nav ul {
-  list-style: none;
-  padding: 0;
-  display: flex;
-}
-
-nav ul li {
-  margin-right: 20px;
-}
-
-nav ul li a {
-  color: #343434; /* Black text */
-  text-decoration: none;
-  font-family: 'Source Code Pro', 'Courier New', Courier, monospace; /* Hacker-like font */
-}
-
-nav ul li a:hover {
-  text-decoration: underline;
-}
-
-#home-page-head {
-  font-size: 70px;
-  text-align: center;
-}
-
-/* Style for the transitioning words on the homepage*/
-#home-page-word {
-  animation-name: word-changer;
-  animation-duration: 1.5s;
-}
-
+/* Custom animations */
 @keyframes fadeIn {
   from {
     opacity: 0;
+    transform: translateY(20px);
   }
   to {
     opacity: 1;
+    transform: translateY(0);
   }
 }
 
-.fadeIn {
-  animation-name: fadeIn;
-  animation-duration: 3s;
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-out;
+}
+
+.animate-slide-up {
+  animation: slideUp 0.3s ease-out;
+}
+
+/* Custom input focus states */
+.input-focus:focus {
+  @apply ring-2 ring-primary-500 border-transparent;
+}
+
+/* Button hover effects */
+.btn-primary {
+  @apply bg-primary-600 hover:bg-primary-700 text-white font-medium py-2 px-4 rounded-lg transition-all duration-200 transform hover:scale-105;
+}
+
+.btn-secondary {
+  @apply bg-gray-700 hover:bg-gray-600 text-white font-medium py-2 px-4 rounded-lg transition-all duration-200;
+}
+
+/* Card components */
+.card {
+  @apply bg-gray-800/50 backdrop-blur-sm rounded-xl border border-gray-700 hover:border-primary-500 transition-all duration-300;
+}
+
+/* Text gradient */
+.text-gradient {
+  @apply bg-gradient-to-r from-primary-400 to-blue-500 bg-clip-text text-transparent;
 }

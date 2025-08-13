@@ -13,8 +13,7 @@ app.config['SECRET_KEY'] = os.environ.get('FLASK_SECRET', 'dev-secret')
 bcrypt = Bcrypt(app)
 login_manager = LoginManager(app)
 csrf = CSRFProtect(app)
-limiter = Limiter(get_remote_address, app=app, default_limits=["200 per day", "50 per hour"])
-
+limiter = Limiter(key_func=get_remote_address, app=app, default_limits=["200 per day", "50 per hour"])
 users = {}
 
 class User(UserMixin):
